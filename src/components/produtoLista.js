@@ -1,14 +1,11 @@
 import React,{Component} from 'react';
 import Produto from './Produto'
 import Title from './Title';
-import {storeProducts} from '../data';
 import {ProdutoConsumer} from '../context';
 export default class ProdutoLista extends Component {
-   state={
-     produtos:storeProducts
-   }
+  
    render(){
-     console.log(this.state.produtos)
+     
      return(
     <React.Fragment>
       <div className="py-5">
@@ -17,17 +14,17 @@ export default class ProdutoLista extends Component {
       <div className="row">
       <ProdutoConsumer>
       {value => {
-        console.log(value)
+        console.log(value.produtos)
+        return value.produtos.map(produto => {
+          return <Produto key={produto.id} produto={produto}
+          />
+        })
       }}
       </ProdutoConsumer>
       </div>
       </div>   
       </div>
     </React.Fragment>
-    //<Produto>
-      
-    //</Produto>
-  
   );
    }
 }
