@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import styled from "styled-components";
 import {Link} from "react-router-dom";
-import {ProdutoConsumer} from "../context"
+import {ProdutoConsumer} from "../context";
+import PropTypes from 'prop-types'
 export default class Produto extends Component {
   render(){
     const{id, title, img, price, inCart} = this.props.produto
@@ -11,7 +12,7 @@ export default class Produto extends Component {
           <div className="img-container p-5"
             onClick={console.log("clicou na imagem")}>
           
-          <Link to="/details">
+          <Link to="/detalhe">
             <img src={img} alt="produto" className="card-img-top"/>
           </Link>
           
@@ -33,14 +34,23 @@ export default class Produto extends Component {
           </p>
           <h5 className="text-blue font-italic mb-0">
             <span className="mr-1">R$</span>
-            {price} 228
+            {price} 
           </h5>
         </div>
       </ProdutoWrapper>
     );
   }
 }
+Produto.propTypes={
+  produto: PropTypes.shape({
+    id: PropTypes.number,
+    img: PropTypes.string,
+    title:PropTypes.string,
+    price: PropTypes.number,
+    inCart: PropTypes.bool
+  }).isRequired
 
+};
 const ProdutoWrapper = styled.div`
 .card{
   border-color:transparent;

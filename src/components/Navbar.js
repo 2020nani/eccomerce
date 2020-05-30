@@ -9,7 +9,7 @@ import logo from '../logo.svg'
 function Navbar() {
   
   return (
-    
+  
   <NavWrapper className="navbar navbar-expand-sm  navbar-dark px-sm-5"> 
    {/*
    https://www.iconfinder.com/icons/1243689/call_phone_icon
