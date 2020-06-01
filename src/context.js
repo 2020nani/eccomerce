@@ -1,31 +1,39 @@
-import React, {Component} from 'react';
-import {storeProducts, detailProduct} from './data'
+import React, { Component } from 'react';
+import { storeProducts, detailProduct } from './data'
 const ProdutoContext = React.createContext();
 
 
-class ProdutoProvider extends Component{
+class ProdutoProvider extends Component {
   state = {
-    produtos:[],
-    detailProduto:detailProduct
+    produtos: [],
+    detailProduto: detailProduct
   };
-  componentDidMount(){
+  componentDidMount() {
     this.setProdutos();
   }
   setProdutos = () => {
     let tempProdutos = [];
     storeProducts.forEach(item => {
-      const singleItem = {...item};
+      const singleItem = { ...item };
       tempProdutos = [...tempProdutos, singleItem];
     });
-    this.setState(()=>{
-      return {produtos:tempProdutos}
+    this.setState(() => {
+      return { produtos: tempProdutos }
     });
   };
-  handleDetail = () =>{
-    console.log('veja os detalhes');
+
+  getItem = id => {
+    const produto = this.state.produtos.find(item =>item.id===id)
+    return produto;
   }
-  addToCart = () =>{
-    console.log('bem vindo ao carrinho');
+  handleDetail = id => {
+    const produto = this.getItem(id);
+    this.setState(()=>{
+      return {detailProduto:produto}
+    })
+  }
+  addToCart = id => {
+    console.log(`bem vindo ao carrinho id produto e ${id}`)
   }
   //testando adicionar carrinho manipulando data.js
   /*tester = () =>{
@@ -40,16 +48,16 @@ class ProdutoProvider extends Component{
     console.log('Data produtos: ', storeProducts[0].inCart);
     })
   }*/
-  render(){
-    return(
+  render() {
+    return (
       <ProdutoContext.Provider value={{
         ...this.state,
-        handleDetail:this.handleDetail,
-        addToCart:this.addToCart
+        handleDetail: this.handleDetail,
+        addToCart: this.addToCart
       }}>
-        
-        
-       {this.props.children}
+
+
+        {this.props.children}
       </ProdutoContext.Provider>
 
     );
@@ -58,5 +66,5 @@ class ProdutoProvider extends Component{
 
 const ProdutoConsumer = ProdutoContext.Consumer;
 
-export {ProdutoProvider, ProdutoConsumer};
+export { ProdutoProvider, ProdutoConsumer };
 
